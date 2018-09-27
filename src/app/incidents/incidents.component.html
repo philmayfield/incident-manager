@@ -1,0 +1,24 @@
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Name</th>
+      <th scope="col">Discovered</th>
+      <th scope="col">Description</th>
+      <th scope="col">Department</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let incident of incidents">
+      <th scope="row">{{ incident.id }}</th>
+      <td>{{ incident.name }}</td>
+      <td>{{ incident.discovered }}</td>
+      <td>{{ incident.description }}</td>
+      <td>{{ incident.department }}</td>
+      <td><a href="#">Edit</a></td>
+      <td><a class="text-danger" href="#">Delete</a></td>
+    </tr>
+  </tbody>
+</table>
