@@ -1,10 +1,13 @@
-import { Injectable } from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import { Incident } from './incident.model';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class IncidentsService {
+  incidentsChanged = new EventEmitter<Incident[]>();
+
   incidents: Incident[] = [
     {
       id: 1,
@@ -15,32 +18,47 @@ export class IncidentsService {
     }
   ];
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   getIncidents() {
     return this.incidents.slice();
   }
 
-  addIncident(incident: Incident) {
-    this.incidents.push(incident);
+  getIncident(id: number) {
+    return id && this.incidents.find(inc => inc.id === id);
   }
 
-  editIncident(id: number, details: {name: string, discovered: string, description: string, department: string}) {
-    const incident = this.incidents.find(inc => inc.id === id);
+  createIncident(incident: Incident) {
+    this.incidents.push(incident);
+    this.incidentsChanged.emit(this.getIncidents());
+  }
+
+  updateIncident(updatedIncident: Incident) {
+    const {id} = updatedIncident;
+    const incident = id && this.getIncident(id);
 
     if (incident) {
-      incident.name = details.name;
-      incident.discovered = details.discovered;
-      incident.description = details.description;
-      incident.department = details.department;
+      incident.name = updatedIncident.name;
+      incident.discovered = updatedIncident.discovered;
+      incident.description = updatedIncident.description;
+      incident.department = updatedIncident.department;
+
+      this.incidentsChanged.emit(this.getIncidents());
+      this.router
+        .navigate(['/'])
+        .catch(err => {
+          throw err;
+        });
     }
   }
 
   deleteIncident(id: number) {
-    const incident = this.incidents.find(inc => inc.id === id);
+    const incident = this.getIncident(id);
 
     if (incident) {
       this.incidents = this.incidents.filter(inc => inc.id !== id);
+
+      this.incidentsChanged.emit(this.getIncidents());
     }
   }
 }

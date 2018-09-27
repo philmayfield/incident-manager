@@ -14,6 +14,14 @@ export class IncidentsComponent implements OnInit {
 
   ngOnInit() {
     this.incidents = this.incService.getIncidents();
+    this.incService.incidentsChanged.subscribe((incidents: Incident[]) => {
+      this.incidents = incidents;
+    });
   }
 
+  onClickDelete(id: number) {
+    if (confirm('Are you sure you want to delete this incident?')) {
+      this.incService.deleteIncident(+id);
+    }
+  }
 }

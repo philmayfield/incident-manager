@@ -1,3 +1,8 @@
+<div class="d-flex mb-3">
+  <span></span>
+  <button class="btn btn-primary ml-auto">Add an Incident</button>
+</div>
+
 <table class="table table-striped table-hover">
   <thead>
     <tr>
@@ -13,12 +18,16 @@
   <tbody>
     <tr *ngFor="let incident of incidents">
       <th scope="row">{{ incident.id }}</th>
-      <td>{{ incident.name }}</td>
+      <td><a routerLink="incident/{{incident.id}}">{{ incident.name }}</a></td>
       <td>{{ incident.discovered }}</td>
       <td>{{ incident.description }}</td>
       <td>{{ incident.department }}</td>
-      <td><a href="#">Edit</a></td>
-      <td><a class="text-danger" href="#">Delete</a></td>
+      <td><a routerLink="incident/{{incident.id}}/edit">Edit</a></td>
+      <td><a href="#" class="text-danger" (click)="onClickDelete(incident.id)">Delete</a></td>
     </tr>
   </tbody>
 </table>
+
+<div class="text-right">
+  <button class="btn btn-primary">Add an Incident</button>
+</div>
