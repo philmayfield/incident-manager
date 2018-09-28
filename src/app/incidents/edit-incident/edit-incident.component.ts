@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {IncidentsService} from '../incidents.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Incident} from '../incident.model';
-import {Location} from '@angular/common';
+import { IncidentsService } from '../incidents.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Incident } from '../incident.model';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-edit-incident',

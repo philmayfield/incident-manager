@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {IncidentsService} from '../incidents.service';
-import {Incident} from '../incident.model';
-import {ActivatedRoute, Router} from '@angular/router';
+import { IncidentsService } from '../incidents.service';
+import { Incident } from '../incident.model';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-incident',
@@ -21,7 +21,6 @@ export class IncidentComponent implements OnInit {
   }
 
   onClickEditBtn() {
-    console.log('click');
     this.router
       .navigate(['edit'], {relativeTo: this.route})
       .catch(err => {

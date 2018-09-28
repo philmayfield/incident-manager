@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {IncidentsService} from './incidents.service';
-import {Incident} from './incident.model';
+import { IncidentsService } from './incidents.service';
+import { Incident } from './incident.model';
 
 @Component({
   selector: 'app-incidents',
