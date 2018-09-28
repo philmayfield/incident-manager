@@ -2,7 +2,7 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.1.5.
 
-Pull down repo, run "npm install", and then "npm start", then navigate to "localhost:4200".
+Pull down repo, run `npm install`, and then `npm start`, then navigate to `localhost:4200`.
 
 ## Development server
 
