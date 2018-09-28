@@ -2,7 +2,7 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.1.5.
 
--Pull down repo, run "npm install", and "npm start".
+Pull down repo, run "npm install", and "npm start".
 
 ## Development server
 
