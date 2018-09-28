@@ -8,6 +8,7 @@ import { IncidentsComponent } from './incidents/incidents.component';
 import { IncidentComponent } from './incidents/incident/incident.component';
 import { EditIncidentComponent } from './incidents/edit-incident/edit-incident.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { CsvComponent } from './incidents/csv/csv.component';
 
 const appRoutes: Routes = [
   {
@@ -38,7 +39,8 @@ const appRoutes: Routes = [
     IncidentsComponent,
     IncidentComponent,
     EditIncidentComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    CsvComponent,
   ],
   imports: [
     BrowserModule,

@@ -6,6 +6,7 @@ import {Router} from '@angular/router';
   providedIn: 'root'
 })
 export class IncidentsService {
+  incidentNum = 2;
   incidentsChanged = new EventEmitter<Incident[]>();
 
   incidents: Incident[] = [
@@ -28,9 +29,13 @@ export class IncidentsService {
     return id && this.incidents.find(inc => inc.id === id);
   }
 
-  createIncident(incident: Incident) {
-    this.incidents.push(incident);
+  createIncident(newIncident: Incident) {
+    newIncident.id = this.incidentNum;
+
+    this.incidents.push(newIncident);
+    this.incIncidentNum();
     this.incidentsChanged.emit(this.getIncidents());
+    this.navigateToList();
   }
 
   updateIncident(updatedIncident: Incident) {
@@ -44,11 +49,7 @@ export class IncidentsService {
       incident.department = updatedIncident.department;
 
       this.incidentsChanged.emit(this.getIncidents());
-      this.router
-        .navigate(['/'])
-        .catch(err => {
-          throw err;
-        });
+      this.navigateToList();
     }
   }
 
@@ -60,5 +61,28 @@ export class IncidentsService {
 
       this.incidentsChanged.emit(this.getIncidents());
     }
+  }
+
+  generateCsv(): string {
+    let csv = 'Id,Name,Discovered,Description,Department';
+
+    for (const incident of this.incidents) {
+      const {id, name, discovered, description, department} = incident;
+      csv = `${csv}\n${id},${name},${discovered},${description},${department}`;
+    }
+
+    return csv;
+  }
+
+  incIncidentNum() {
+    this.incidentNum++;
+  }
+
+  navigateToList() {
+    this.router
+      .navigate(['/'])
+      .catch(err => {
+        throw err;
+      });
   }
 }

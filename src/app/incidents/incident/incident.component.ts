@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {IncidentsService} from '../indicents.service';
+import {IncidentsService} from '../incidents.service';
 import {Incident} from '../incident.model';
 import {ActivatedRoute, Router} from '@angular/router';
 

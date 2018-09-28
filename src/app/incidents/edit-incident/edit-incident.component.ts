@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {IncidentsService} from '../indicents.service';
+import {IncidentsService} from '../incidents.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Incident} from '../incident.model';
 import {Location} from '@angular/common';
@@ -11,6 +11,8 @@ import {Location} from '@angular/common';
 })
 export class EditIncidentComponent implements OnInit {
   incident: Incident;
+  isNew = false;
+  today: string;
   departments: string[] = ['HR', 'Finance', 'Legal'];
 
   constructor(private incService: IncidentsService,
@@ -20,7 +22,31 @@ export class EditIncidentComponent implements OnInit {
 
   ngOnInit() {
     const {id} = this.route.snapshot.params;
-    this.incident = id && this.incService.getIncident(+id);
+    const todayString = new Date().toLocaleDateString();
+    let [month, day, year] = todayString.split('/');
+    month = month.length === 1 ? `0${month}` : month;
+    day = day.length === 1 ? `0${day}` : day;
+    year = year; // linting was throwing an error without re-assigning
+    const today = `${year}-${month}-${day}`;
+
+    this.today = today;
+
+    if (id && id === 'new') {
+      this.isNew = true;
+      this.incident = new Incident(-1, '', today, '', '');
+    } else {
+      const foundIncident = id && this.incService.getIncident(+id);
+
+      if (foundIncident) {
+        this.incident = foundIncident;
+      } else {
+        this.router
+          .navigate(['/'])
+          .catch(err => {
+            throw err;
+          });
+      }
+    }
   }
 
   onClickBack() {
@@ -29,8 +55,9 @@ export class EditIncidentComponent implements OnInit {
 
   onClickSave() {
     const {id} = this.incident;
-    if (id) {
-      // const updatedIncident = new Incident(id, this.name, this.discovered, this.description, this.department);
+    if (id === -1) {
+      this.incService.createIncident(this.incident);
+    } else {
       this.incService.updateIncident(this.incident);
     }
   }

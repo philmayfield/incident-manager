@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {IncidentsService} from './indicents.service';
+import {IncidentsService} from './incidents.service';
 import {Incident} from './incident.model';
 
 @Component({
@@ -9,6 +9,7 @@ import {Incident} from './incident.model';
 })
 export class IncidentsComponent implements OnInit {
   incidents: Incident[] = [];
+  showCsv = false;
 
   constructor(private incService: IncidentsService) { }
 
@@ -23,5 +24,9 @@ export class IncidentsComponent implements OnInit {
     if (confirm('Are you sure you want to delete this incident?')) {
       this.incService.deleteIncident(+id);
     }
+  }
+
+  onToggleCsv() {
+    this.showCsv = !this.showCsv;
   }
 }

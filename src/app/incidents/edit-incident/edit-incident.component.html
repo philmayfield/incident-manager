@@ -1,6 +1,5 @@
-<hr>
-
-<h2>Editing Incident: {{ incident.name }}</h2>
+<h2 *ngIf="!isNew">Editing Incident: {{ incident.name }}</h2>
+<h2 *ngIf="isNew">Adding Incident: {{ incident.name }}</h2>
 
 <div class="form-group">
   <label for="incName">Incident Name</label>
@@ -15,7 +14,7 @@
     type="date" 
     [value]="incident.discovered | date: 'yyyy-MM-dd'"
     (input)="incident.discovered"
-    #discovered
+    max="{{ today }}"
   >
 </div>
 
