@@ -64,14 +64,26 @@ export class IncidentsService {
   }
 
   generateCsv(): string {
-    let csv = 'Id,Name,Discovered,Description,Department';
+    const tmpArr = [];
+    const tempIncident = new Incident();
+    const keys = Object.keys(tempIncident);
 
-    for (const incident of this.incidents) {
-      const {id, name, discovered, description, department} = incident;
-      csv = `${csv}\n${id},${name},${discovered},${description},${department}`;
+    for (const key of keys) {
+      tmpArr.push(key);
     }
 
-    return csv;
+    let csvString = tmpArr.join(',');
+    tmpArr.length = 0;
+
+    for (const incident of this.incidents) {
+      for (const key of keys) {
+        tmpArr.push(String(incident[key]).replace(',', ''));
+      }
+      csvString += `\n${tmpArr.join(',')}`;
+      tmpArr.length = 0;
+    }
+
+    return csvString;
   }
 
   incIncidentNum() {
