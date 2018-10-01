@@ -13,5 +13,8 @@ export class CsvComponent implements OnInit {
 
   ngOnInit() {
     this.csvBody = this.incService.generateCsv();
+    this.incService.incidentsChanged.subscribe(() => {
+      this.csvBody = this.incService.generateCsv();
+    });
   }
 }
