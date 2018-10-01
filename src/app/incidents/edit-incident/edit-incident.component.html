@@ -12,8 +12,8 @@
     id="incDiscovered" 
     class="form-control" 
     type="date" 
-    [value]="incident.discovered | date: 'yyyy-MM-dd'"
-    (input)="incident.discovered"
+    [ngModel]="incident.discovered | date: 'yyyy-MM-dd'"
+    (ngModelChange)="incident.discovered = $event"
     max="{{ today }}"
   >
 </div>
