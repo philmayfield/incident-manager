@@ -1,41 +1,66 @@
 <h2 *ngIf="!isNew">Editing Incident: {{ incident.name }}</h2>
-<h2 *ngIf="isNew">Adding Incident: {{ incident.name }}</h2>
+<h2 *ngIf="isNew">Adding Incident{{ incident.name.length ? ':' : '&hellip;' }} {{ incident.name }}</h2>
 
-<div class="form-group">
-  <label for="incName">Incident Name</label>
-  <input id="incName" class="form-control" type="text" [(ngModel)]="incident.name">
-</div>
+<form
+  (ngSubmit)="onSubmit()"
+  #incidentForm="ngForm"
+>
 
-<div class="form-group">
-  <label for="incDiscovered">Discovered Date</label>
-  <input 
-    id="incDiscovered" 
-    class="form-control" 
-    type="date" 
-    [ngModel]="incident.discovered | date: 'yyyy-MM-dd'"
-    (ngModelChange)="incident.discovered = $event"
-    max="{{ today }}"
-  >
-</div>
+  <div class="form-group">
+    <label for="incName">Incident Name</label>
+    <input
+      id="incName"
+      class="form-control"
+      type="text"
+      required
+      name="name"
+      [(ngModel)]="incident.name">
+  </div>
 
-<div class="form-group">
-  <label for="incDesc">Incident Description</label>
-  <textarea id="incDesc" class="form-control" rows="3" [(ngModel)]="incident.description"></textarea>
-</div>
+  <div class="form-group">
+    <label for="incDiscovered">Discovered Date</label>
+    <input
+      id="incDiscovered"
+      class="form-control"
+      type="date"
+      required
+      name="discovered"
+      [ngModel]="incident.discovered | date: 'yyyy-MM-dd'"
+      (ngModelChange)="incident.discovered = $event"
+      max="{{ today }}"
+    >
+  </div>
 
-<div class="form-group">
-  <label for="incDept">Department</label>
-  <select id="incDept" class="form-control"
-    [(ngModel)]="incident.department">
-    <option value="">Select</option>
-    <option
-      *ngFor="let dept of departments"
-      [ngValue]="dept"
-    >{{ dept }}</option>
-  </select>
-</div>
+  <div class="form-group">
+    <label for="incDesc">Incident Description</label>
+    <textarea
+      id="incDesc"
+      class="form-control"
+      rows="3"
+      required
+      name="description"
+      [(ngModel)]="incident.description"></textarea>
+  </div>
 
-<div>
-  <button class="btn btn-secondary mr-1" (click)="onClickBack()">Go back</button>
-  <button class="btn btn-success" (click)="onClickSave()">Save changes</button>
-</div>
+  <div class="form-group">
+    <label for="incDept">Department</label>
+    <select
+      id="incDept"
+      class="form-control"
+      required
+      name="department"
+      [(ngModel)]="incident.department">
+      <option value="">Select</option>
+      <option
+        *ngFor="let dept of departments"
+        [ngValue]="dept"
+      >{{ dept }}</option>
+    </select>
+  </div>
+
+  <div>
+    <button type="button" class="btn btn-secondary mr-1" (click)="onClickBack()">Go back</button>
+    <button type="submit" class="btn btn-success" [disabled]="!incidentForm.form.valid">Save changes</button>
+  </div>
+
+</form>

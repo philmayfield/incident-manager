@@ -53,7 +53,7 @@ export class EditIncidentComponent implements OnInit {
     this.location.back();
   }
 
-  onClickSave() {
+  onSubmit() {
     const {id} = this.incident;
     if (id === -1) {
       this.incService.createIncident(this.incident);
