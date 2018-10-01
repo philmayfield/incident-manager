@@ -1,11 +1,19 @@
 <h2>{{ incident.name }}</h2>
 
-<p><strong>Discovered:</strong> {{ incident.discovered }}</p>
+<dl>
+  <dt>Discovered On</dt>
+  <dd>{{ incident.discovered }}</dd>
+  <dt>Description of Incident</dt>
+  <dd>{{ incident.description }}</dd>
+  <dt>Department</dt>
+  <dd>{{ incident.department }}</dd>
+</dl>
 
-<p><strong>Description:</strong> {{ incident.description }}</p>
+<hr>
 
-<p><strong>Department:</strong> {{ incident.department }}</p>
+<div class="d-flex">
+  <a routerLink="/">Back to incidents</a>
+  <button class="btn btn-primary ml-auto" (click)="onClickEditBtn()">Edit this incident</button>
+</div>
 
-<a routerLink="/" class="btn btn-secondary mr-1">Back to incidents</a>
 
-<button class="btn btn-primary" (click)="onClickEditBtn()">Edit this incident</button>

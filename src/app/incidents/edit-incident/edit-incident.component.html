@@ -1,5 +1,9 @@
-<h2 *ngIf="!isNew">Editing Incident: {{ incident.name }}</h2>
-<h2 *ngIf="isNew">Adding Incident{{ incident.name.length ? ':' : '&hellip;' }} {{ incident.name }}</h2>
+<h2 [ngSwitch]="isNew">
+  <ng-container *ngSwitchCase="true">Adding</ng-container>
+  <ng-container *ngSwitchCase="false">Editing</ng-container>
+  Incident{{ incident.name.length ? ':' : '&hellip;' }}
+  {{ incident.name }}
+</h2>
 
 <form
   (ngSubmit)="onSubmit()"
@@ -58,9 +62,9 @@
     </select>
   </div>
 
-  <div>
-    <button type="button" class="btn btn-secondary mr-1" (click)="onClickBack()">Go back</button>
-    <button type="submit" class="btn btn-success" [disabled]="!incidentForm.form.valid">Save changes</button>
+  <div class="d-flex">
+    <button type="button" class="btn btn-link p-0" (click)="onClickBack()">Go back</button>
+    <button type="submit" class="btn btn-success ml-auto" [disabled]="!incidentForm.valid">Save changes</button>
   </div>
 
 </form>
