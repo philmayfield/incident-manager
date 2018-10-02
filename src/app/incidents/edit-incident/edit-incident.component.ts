@@ -10,7 +10,7 @@ import { Location } from '@angular/common';
   styleUrls: ['./edit-incident.component.css']
 })
 export class EditIncidentComponent implements OnInit {
-  incident: Incident;
+  incident: Incident = new Incident();
   isNew = false;
   today: string;
   departments: string[] = ['HR', 'Finance', 'Legal'];
@@ -33,11 +33,10 @@ export class EditIncidentComponent implements OnInit {
 
     if (id && id === 'new') {
       this.isNew = true;
-      this.incident = new Incident(-1, '', today, '', '');
     } else {
       const foundIncident = id && this.incService.getIncident(+id);
 
-      if (foundIncident) {
+      if (!!foundIncident) {
         this.incident = foundIncident;
       } else {
         this.router
