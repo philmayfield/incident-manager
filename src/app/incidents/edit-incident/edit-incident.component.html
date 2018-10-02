@@ -29,9 +29,9 @@
       type="date"
       required
       name="discovered"
-      [ngModel]="incident.discovered | date: 'yyyy-MM-dd'"
+      [ngModel]="(incident.discovered ? incident.discovered : today) | date: 'yyyy-MM-dd'"
       (ngModelChange)="incident.discovered = $event"
-      max="{{ today }}"
+      [max]="today"
     >
   </div>
 
